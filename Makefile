@@ -3,8 +3,8 @@
 # Edited by Divyam and Dante
 
 # Edit this file to compile extra C files into their own programs.
-TARGET= morseGenerator
-SOURCES= main.c morsecode.c input.c
+TARGET= as4-morsecode
+SOURCES= main.c morsecode.c matrix.c utils.c
 PUBDIR = $(HOME)/cmpt433/public/myApps
 OUTDIR = $(PUBDIR)
 CROSS_TOOL = arm-linux-gnueabihf
@@ -16,9 +16,9 @@ CFLAGS = -g -std=c99 -D _POSIX_C_SOURCE=200809L -Werror -Wshadow -Wall -pthread
 # -pg for supporting gprof profiling.
 #CFLAGS += -pg
 
-all: morseGenerator 
+all: as4-morsecode
 
-beatbox:
+as4-morsecode:
 	$(CC_C) $(CFLAGS) $(SOURCES) -o $(OUTDIR)/$(TARGET) $(LFLAGS) -lpthread -lasound
 
 clean:
