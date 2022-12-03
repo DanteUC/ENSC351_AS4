@@ -5,6 +5,8 @@
 
 //calls getline to get a message from user and returns a char array 
 //of its morse code equivilent as X and _
-char* getInputFromUser();
+void input_getInputFromUser();
+
+void input_printBuffer();
 
 #endif
