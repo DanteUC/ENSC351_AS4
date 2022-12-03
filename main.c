@@ -5,8 +5,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool stopping = false;
-
+bool stopping = false; 
 int main (){
     //thread init
     printf("Beginning Morse Code!!\n");

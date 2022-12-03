@@ -2,51 +2,70 @@
 #include "morsecode.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
 #include <string.h>
 
 #define MAX_BUFF_SIZE 2048
 #define WHITESPACE_CHARS 7
 
 bool morseRepresentationBuffer[MAX_BUFF_SIZE]={0};
-int charsWritten = 0;
+
+
+void clearBuffer(){
+    for(int i = 0; i<MAX_BUFF_SIZE;i++){
+        morseRepresentationBuffer[i] = 0;
+    }
+}
 
 void input_getInputFromUser(){
     int bufferPosition = 0;
+    clearBuffer();
     //prompt user input and do something with the result
     printf(">\n");
     char *buff = NULL;
-    for(int i = 0; i< MAX_BUFF_SIZE;i++){
 
-    }
     size_t sizeAllocated = 0;
     size_t numCh = getline(&buff, &sizeAllocated, stdin);
     // Now use buff[] and it’s numCh characters.
     // You can ignore sizeAllocated.
     // ..<your code here>..
-    
-    if(buff[0] == '\n'){
-        //exit = true;
-    }else{
-        // read the line and do morse stuff 
 
-        //while not end of buffer
-        for(int i = 0; i<numCh; i++){
+    printf("numCh value: %i\n", numCh);
+    if(buff[0] == '\n'){
+        printf("exit\n");
+        //stopping = true;
+    }else{
+        int i = 0;
+        while(buff[i] != '\n'){
+
+            printf("i = %i\n",i);
 
             if(buff[i]==' '){
-                for(int j = 0;j<WHITESPACE_CHARS;j++){
+                printf("read whitespace \n");
+                for(int j = 0; j<WHITESPACE_CHARS; j++){
                     morseRepresentationBuffer[bufferPosition] = false;
                     bufferPosition++;
                 }
+
             }else{
+
+                printf("read %c from buffer\n", buff[i]);
                 char* morseBits = MorseCode_getFlashCode(buff[i]);
                 size_t numBits = strlen(morseBits);
-                for(int j=0; i< numBits; i++){
+            
+                
+                for(int j = 0; j < numBits; j++){
+                    printf("inserting %i into position %i\n",morseBits[j],bufferPosition);
                     morseRepresentationBuffer[bufferPosition] = morseBits[j];
+                    
                     bufferPosition++;
                 }
+                
+                free(morseBits);
             }
+            i++;
         }
+
     }
     // Cleanup from getline()
     free (buff);
@@ -60,9 +79,10 @@ void input_printBuffer(){
         }else{
             printf("_");
         }
-        //only print 20 chars per line
+        //only print 40 chars per line
         if(i%40 == 0){
             printf("\n");
         }
     }
 }
+

@@ -23,33 +23,38 @@
 //
 
 #include <ctype.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define WHITESPACE "0000000"
 
 
 static char* morsecode_codes[] = {
-		"10111",	// A 1011 1
-		"111010101",	// B 1110 1010 1
-		"11101011101",	// C 1110 1011 101
-		"1110101",	// D 1110 101
-		"1",	// E 1
-		"101011101", // F 1010 1110 1
-		"111011101",	// G 1110 1110 1
-		"1011101110111",	// J 1011 1011 1011 1
+		"10111",		// A 0xB80
+		"111010101",	// B 0xEA80
+		"11101011101",	// C 0xEBA0
+		"1110101",		// D 0xEA00
+		"1",			// E 0x8000
+		"101011101", 	// F 0xAE80
+		"111011101",	// G 0xEE80
+		"1010101", 		// H 0xAA00
+		"101", 			// I 0xA000
+		"1011101110111",// J 0xBBB8
 		"111010111",	// K 0xEB80
 		"101110101",	// L 0xBA80
-		"1110111",	// M 0xEE00
-		"11101",	// N 0xE800
+		"1110111",		// M 0xEE00
+		"11101",		// N 0xE800
 		"11101110111",	// O 0xEEE0
 		"10111011101" ,	// P 0xBBA0
-		"1110111010111", // Q 0xEEB8
-		"1011101",	// R 0xBA00
-		"10101",	// S 0xA800
-		"111",	// T 0xE000
-		"1010111",	// U 0xAE00
+		"1110111010111",// Q 0xEEB8
+		"1011101",		// R 0xBA00
+		"10101",		// S 0xA800
+		"111",			// T 0xE000
+		"1010111",		// U 0xAE00
 		"101010111",	// V 0xAB80 
 		"101110111",	// W 0xBB80
 		"11101010111",	// X 0xEAE0 
-		"1110101110111",	// Y 0xEBB8
+		"1110101110111",// Y 0xEBB8
 		"11101110101"	// Z 0xEEA0
 };
 
@@ -58,7 +63,8 @@ static char* morsecode_codes[] = {
 //cannot take non-whitespace or alpha chars
 char* MorseCode_getFlashCode(char ch)
 {
-	char* flashCode;
+
+	char* flashCode = malloc(15*sizeof(char));
 	if(ch == ' '){
 		return WHITESPACE;
 	}
@@ -69,6 +75,8 @@ char* MorseCode_getFlashCode(char ch)
 	if (ch >= 'A' && upperCase <= 'Z') {
 		flashCode = morsecode_codes[upperCase - 'A'];
 	}
-	
+	for(int i = 0; i < strlen(flashCode);i++){
+		printf("flashcode: %c\n",flashCode[i]);
+	}
 	return flashCode;
 }

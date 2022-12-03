@@ -2,6 +2,9 @@
 
 #ifndef INPUT_H
 #define INPUT_H
+#include <stdbool.h>
+
+//bool stopping = false;
 
 //calls getline to get a message from user and returns a char array 
 //of its morse code equivilent as X and _
