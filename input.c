@@ -7,9 +7,12 @@
 
 #define MAX_BUFF_SIZE 2048
 #define WHITESPACE_CHARS 7
+#define CHAR_SPACE 3
+#define CHAR_TO_INT 48
 
-bool morseRepresentationBuffer[MAX_BUFF_SIZE]={0};
-
+//add mutex
+bool morseRepresentationBuffer[MAX_BUFF_SIZE] = {0};
+int bufferPosition = 0;
 
 void clearBuffer(){
     for(int i = 0; i<MAX_BUFF_SIZE;i++){
@@ -18,10 +21,10 @@ void clearBuffer(){
 }
 
 void input_getInputFromUser(){
-    int bufferPosition = 0;
+    bufferPosition = 0;
     clearBuffer();
     //prompt user input and do something with the result
-    printf(">\n");
+    printf(">");
     char *buff = NULL;
 
     size_t sizeAllocated = 0;
@@ -35,8 +38,8 @@ void input_getInputFromUser(){
         printf("exit\n");
         //stopping = true;
     }else{
-        int i = 0;
-        while(buff[i] != '\n'){
+        
+        for(int i = 0; i<numCh-1; i++){
 
             printf("i = %i\n",i);
 
@@ -53,17 +56,21 @@ void input_getInputFromUser(){
                 char* morseBits = MorseCode_getFlashCode(buff[i]);
                 size_t numBits = strlen(morseBits);
             
-                
                 for(int j = 0; j < numBits; j++){
-                    printf("inserting %i into position %i\n",morseBits[j],bufferPosition);
-                    morseRepresentationBuffer[bufferPosition] = morseBits[j];
-                    
+                    printf("inserting %i into position %i\n", ((int) morseBits[j]) - CHAR_TO_INT , bufferPosition);
+                    morseRepresentationBuffer[bufferPosition] =  ((int) morseBits[j] - CHAR_TO_INT);
                     bufferPosition++;
                 }
-                
-                free(morseBits);
+                //add in 3 empty dots after a character
+                for(int j = 0; j < CHAR_SPACE;j++){
+                    morseRepresentationBuffer[bufferPosition] = 0;
+                    bufferPosition++;
+                }
+
+                printf("attempting to free\n");
+                //free(morseBits);
             }
-            i++;
+            
         }
 
     }
@@ -73,16 +80,17 @@ void input_getInputFromUser(){
 }
 
 void input_printBuffer(){
-    for(int i = 0; i<MAX_BUFF_SIZE;i++){
+    for(int i = 0; i < MAX_BUFF_SIZE; i++){
         if(morseRepresentationBuffer[i] == 1){
             printf("X");
         }else{
             printf("_");
         }
-        //only print 40 chars per line
-        if(i%40 == 0){
+        //only print 80 chars per line
+        if(i%80 == 0 && i != 0){
             printf("\n");
         }
     }
+    printf("\n");
 }
 

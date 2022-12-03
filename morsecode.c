@@ -68,7 +68,7 @@ char* MorseCode_getFlashCode(char ch)
 	if(ch == ' '){
 		return WHITESPACE;
 	}
-	// Convert to lower case:
+	// Convert to upper case:
 	char upperCase = toupper(ch);
 
 	// If valid letter, look it up in the array:
@@ -76,7 +76,9 @@ char* MorseCode_getFlashCode(char ch)
 		flashCode = morsecode_codes[upperCase - 'A'];
 	}
 	for(int i = 0; i < strlen(flashCode);i++){
-		printf("flashcode: %c\n",flashCode[i]);
+		printf("%c",flashCode[i]);
+		
 	}
+	printf("\n");
 	return flashCode;
 }
