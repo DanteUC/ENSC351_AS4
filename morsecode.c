@@ -75,10 +75,13 @@ char* MorseCode_getFlashCode(char ch)
 	if (ch >= 'A' && upperCase <= 'Z') {
 		flashCode = morsecode_codes[upperCase - 'A'];
 	}
-	for(int i = 0; i < strlen(flashCode);i++){
-		printf("%c",flashCode[i]);
+
+	//debugging print statements
+	// for(int i = 0; i < strlen(flashCode);i++){
+	// 	printf("%c",flashCode[i]);
 		
-	}
-	printf("\n");
+	// }
+	// printf("\n");
+	
 	return flashCode;
 }

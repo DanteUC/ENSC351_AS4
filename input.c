@@ -33,7 +33,7 @@ void input_getInputFromUser(){
     // You can ignore sizeAllocated.
     // ..<your code here>..
 
-    printf("numCh value: %i\n", numCh);
+    
     if(buff[0] == '\n'){
         printf("exit\n");
         //stopping = true;
@@ -57,16 +57,16 @@ void input_getInputFromUser(){
                 size_t numBits = strlen(morseBits);
             
                 for(int j = 0; j < numBits; j++){
-                    printf("inserting %i into position %i\n", ((int) morseBits[j]) - CHAR_TO_INT , bufferPosition);
-                    morseRepresentationBuffer[bufferPosition] =  ((int) morseBits[j] - CHAR_TO_INT);
+                    morseRepresentationBuffer[bufferPosition] =  (morseBits[j] - CHAR_TO_INT);
                     bufferPosition++;
                 }
+
                 //add in 3 empty dots after a character
                 for(int j = 0; j < CHAR_SPACE;j++){
                     morseRepresentationBuffer[bufferPosition] = 0;
                     bufferPosition++;
                 }
-
+                
                 printf("attempting to free\n");
                 //free(morseBits);
             }
