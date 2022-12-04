@@ -2,7 +2,6 @@
 #include "morsecode.h"
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <string.h>
 
 #define MAX_BUFF_SIZE 2048
@@ -10,7 +9,6 @@
 #define CHAR_SPACE 3
 #define CHAR_TO_INT 48
 
-//add mutex
 bool morseRepresentationBuffer[MAX_BUFF_SIZE] = {0};
 int bufferPosition = 0;
 
@@ -20,12 +18,13 @@ void clearBuffer(){
     }
 }
 
-void input_getInputFromUser(){
+int input_getInputFromUser(){
     bufferPosition = 0;
     clearBuffer();
     //prompt user input and do something with the result
     printf(">");
     char *buff = NULL;
+    char* morseBits = NULL;
 
     size_t sizeAllocated = 0;
     size_t numCh = getline(&buff, &sizeAllocated, stdin);
@@ -36,7 +35,7 @@ void input_getInputFromUser(){
     
     if(buff[0] == '\n'){
         printf("exit\n");
-        //stopping = true;
+        return 0;
     }else{
         
         for(int i = 0; i<numCh-1; i++){
@@ -53,7 +52,7 @@ void input_getInputFromUser(){
             }else{
 
                 printf("read %c from buffer\n", buff[i]);
-                char* morseBits = MorseCode_getFlashCode(buff[i]);
+                morseBits = MorseCode_getFlashCode(buff[i]);
                 size_t numBits = strlen(morseBits);
             
                 for(int j = 0; j < numBits; j++){
@@ -67,8 +66,6 @@ void input_getInputFromUser(){
                     bufferPosition++;
                 }
                 
-                printf("attempting to free\n");
-                //free(morseBits);
             }
             
         }
@@ -77,10 +74,12 @@ void input_getInputFromUser(){
     // Cleanup from getline()
     free (buff);
     buff = NULL;
+
+    return 1;
 }
 
 void input_printBuffer(){
-    for(int i = 0; i < MAX_BUFF_SIZE; i++){
+    for(int i = 0; i < bufferPosition; i++){
         if(morseRepresentationBuffer[i] == 1){
             printf("X");
         }else{

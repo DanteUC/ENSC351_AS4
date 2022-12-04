@@ -4,12 +4,9 @@
 #define INPUT_H
 #include <stdbool.h>
 
-//bool stopping = false;
-
 //calls getline to get a message from user and returns a char array 
 //of its morse code equivilent as X and _
-void input_getInputFromUser();
-
+int input_getInputFromUser();
 void input_printBuffer();
 
 #endif

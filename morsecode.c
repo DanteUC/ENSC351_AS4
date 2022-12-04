@@ -64,7 +64,7 @@ static char* morsecode_codes[] = {
 char* MorseCode_getFlashCode(char ch)
 {
 
-	char* flashCode = malloc(15*sizeof(char));
+	char* flashCode = NULL;
 	if(ch == ' '){
 		return WHITESPACE;
 	}

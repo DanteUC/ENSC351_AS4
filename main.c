@@ -5,14 +5,23 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-bool stopping = false; 
+
 int main (){
+
+    _Bool stopping = false;
+
     //thread init
+    
     printf("Beginning Morse Code!!\n");
     
     while(!stopping){
-        input_getInputFromUser();
-        input_printBuffer();
+        if(input_getInputFromUser()) {
+            input_printBuffer();
+        }
+        else {
+            stopping = true;
+        }
+        
     }
     
     //thread cleanup
