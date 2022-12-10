@@ -37,21 +37,23 @@ int input_getInputFromUser(){
         printf("exit\n");
         return 0;
     }else{
+        if(buff[numCh-2] == ' ' || buff[numCh-2] == '\t' || buff[numCh-2] == '\n'){
+            buff[numCh-2] = 0;
+            numCh = numCh -1;
+	    }
+        printf("Flashing out %i characters: %s\n",numCh-1, buff);
         
-        for(int i = 0; i<numCh-1; i++){
-
-            printf("i = %i\n",i);
+        for(int i = 0; i<numCh -1; i++){
 
             if(buff[i]==' '){
-                printf("read whitespace \n");
+                //printf("read whitespace \n");
                 for(int j = 0; j<WHITESPACE_CHARS; j++){
                     morseRepresentationBuffer[bufferPosition] = false;
                     bufferPosition++;
                 }
 
             }else{
-
-                printf("read %c from buffer\n", buff[i]);
+                //printf("read %c from buffer\n", buff[i]);
                 morseBits = MorseCode_getFlashCode(buff[i]);
                 size_t numBits = strlen(morseBits);
             
@@ -75,20 +77,28 @@ int input_getInputFromUser(){
     free (buff);
     buff = NULL;
 
-    return 1;
+    return bufferPosition;
 }
 
-void input_printBuffer(){
-    for(int i = 0; i < bufferPosition; i++){
+int input_printBuffer(int pos)
+{
+    if(morseRepresentationBuffer[pos] == 1){
+        return 1;
+    }else{
+        return 0;
+    }
+    
+}
+
+void input_printAllBuffer()
+{
+    for(int i = 0; i < bufferPosition-3; i++){
         if(morseRepresentationBuffer[i] == 1){
             printf("X");
         }else{
             printf("_");
         }
-        //only print 80 chars per line
-        if(i%80 == 0 && i != 0){
-            printf("\n");
-        }
+        
     }
     printf("\n");
 }

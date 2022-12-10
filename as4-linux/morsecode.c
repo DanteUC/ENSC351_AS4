@@ -65,7 +65,7 @@ char* MorseCode_getFlashCode(char ch)
 {
 
 	char* flashCode = NULL;
-	if(ch == ' '){
+	if(ch == ' ' || ch == '\t' || ch == '\n' || ch == '\r'){
 		return WHITESPACE;
 	}
 	// Convert to upper case:

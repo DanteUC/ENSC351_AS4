@@ -2,6 +2,7 @@
     "files.associations": {
         "stdbool.h": "c",
         "morsecode.h": "c",
-        "matrix.h": "c"
+        "matrix.h": "c",
+        "shareddatastruct.h": "c"
     }
 }
